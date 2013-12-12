@@ -1,6 +1,6 @@
 ## Shopify Bones
 
-Shopify Bones is a base Shopify theme designed for creating themes from scratch. If you're looking for a stripped down liquid skeleton with lean semantic markup (including the customer area), this is it. No comments, no classes. Foundation 5 grid dropped in for convenience.
+Shopify Bones is a base Shopify theme designed for creating themes from scratch. If you're looking for a stripped down liquid skeleton with lean semantic markup, this is it. No comments, no classes. Includes customer area. Foundation 5 grid dropped in for convenience.
 
 ## Installing the Theme
 
