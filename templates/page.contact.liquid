@@ -1,0 +1,45 @@
+<h1>{{ page.title }}</h1>
+
+{{ page.content }}
+
+{% form 'contact' %}
+
+  {% if form.posted_successfully? %}
+    <section>
+      <p>Thanks for contacting us! We'll get back to you as soon as possible.</p>
+    </section>
+  {% endif %}
+
+  {% if form.errors %}
+    <section>
+      <p>Please correct the following errors and submit again:</p>
+      {% for field in form.errors %}
+        <p>The {{ field | capitalize | replace: 'Body', 'Message' }} field {{ form.errors.messages[field] }}.</p>
+      {% endfor %}
+    </section>
+  {% endif %}
+
+  <section>
+    <label>Your Name:</label><br/>
+    <input type="text" id="contactFormName" name="contact[name]" placeholder="John Doe" />
+  </section>
+  
+  <section>
+    <label>Email:</label><br/>
+    <input type="email" id="contactFormEmail" name="contact[email]" placeholder="john@example.com" />
+  </section>
+
+  <section>
+    <label>Phone Number:</label><br/>
+    <input type="tel" id="contactFormTelephone" name="contact[phone]" placeholder="555-555-1234" />
+  </section>
+
+  <section>
+    <label>Message:</label><br/>
+    <textarea rows="15" cols="75" id="contactFormMessage" name="contact[body]" placeholder="Your Message"></textarea>
+  </section>
+
+  <section>
+    <input type="submit" id="contactFormSubmit" value="Send" />
+  </section>
+{% endform %}

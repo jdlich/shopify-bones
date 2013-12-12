@@ -1,0 +1,20 @@
+
+<ul>
+  <li>
+    <a href="{{ product.url | within: collection }}">
+      {{ product.featured_image.src | product_img_url: 'medium' | img_tag: product.featured_image.alt }}
+    </a>
+  </li>
+  <li>
+    <a href="{{ product.url | within: collection }}">
+      {{ product.title }}
+    </a>      
+  </li>
+  <li>
+    {% if product.price_varies %}From{% endif %}
+      {{ product.price | money }}
+    {% if on_sale %}
+      <s>{{ product.compare_at_price | money }}</s>
+    {% endif %}
+  </li>
+</ul>

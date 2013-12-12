@@ -1,0 +1,20 @@
+
+{% paginate collection.products by 6 %}
+
+  <h1>{{ collection.title }}</h1>
+
+  {% unless collection.description == empty %}
+    {{ collection.description }}
+  {% endunless %}
+
+  <ul>
+    {% for product in collection.products %}
+      <li>{% include 'product' %}</li>
+    {% else %}
+      <li>There are no products in this view.</li>
+    {% endfor %}
+  </ul>
+
+  {{ paginate | default_pagination }}
+
+{% endpaginate %}

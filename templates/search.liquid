@@ -1,0 +1,19 @@
+
+{% if search.performed %}
+  {% paginate search.results by 10 %}
+    
+    <p>{{ search.results_count }} {{ search.results_count | pluralize: 'result', 'results' }} for <strong>{{ search.terms }}</strong></p>
+  
+    {% for item in search.results %}
+      <h3>{{ item.title | link_to: item.url }}</h3>
+      {% if item.featured_image %}
+        <a href="{{ item.url }}">
+          {{ item.featured_image.src | product_img_url: 'small' | img_tag: item.featured_image.alt }}
+        </a>
+      {% endif %}
+      <p>{{ item.content | strip_html | truncatewords: 40 | highlight: search.terms }}</p>
+    {% endfor %}
+  
+    {{ paginate | default_pagination }}
+  {% endpaginate %}
+{% endif %}

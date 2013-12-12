@@ -1,0 +1,76 @@
+<div itemscope itemtype="http://schema.org/Product">
+  
+  <meta itemprop="url" content="{{ shop.url }}{{ product.url }}" />
+  <meta itemprop="image" content="{{ product.featured_image.src | product_img_url: 'grande' }}" />
+  
+  {{ product.featured_image.src | product_img_url: 'grande' | img_tag: product.featured_image.alt }}
+
+  {% if product.images.size > 1 %}
+    <ul>
+      {% for image in product.images offset:1 %}
+        <li>
+          <a href="{{ image.src | product_img_url: 'original' }}" rel="gallery">
+            {{ image.src | product_img_url: 'compact' | img_tag: image.alt }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+  
+  <form action="/cart/add" method="post" enctype="multipart/form-data">
+    <h1 itemprop="name">{{ product.title }}</h1>
+    
+    {% assign product_vendor = product.vendor | handle %}            
+    
+    {% if collections[product_vendor].handle == product_vendor %}
+      {% assign vendor_url = collections[product_vendor_handle].url %}
+    {% else %}
+      {% assign vendor_url = product.vendor | url_for_vendor %}
+    {% endif %}
+    
+    <h2 itemprop="brand">{{ product.vendor | link_to: vendor_url }}</h2>
+    
+    <section itemprop="description">
+      {{ product.description }}
+    </section>
+    
+    <section itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+      <meta itemprop="priceCurrency" content="{{ shop.currency }}" />
+
+      {% if product.available %}
+        <link itemprop="availability" href="http://schema.org/InStock" />
+      {% else %}
+        <link itemprop="availability" href="http://schema.org/OutOfStock" />
+      {% endif %}
+
+      <p>
+        {% if product.compare_at_price > product.price %}
+          <span itemprop="price">
+            {{ product.price | money }}
+          </span>
+          <s>
+            {{ product.compare_at_price_max | money }}
+          </s>
+        {% else %}
+          <span itemprop="price">
+            {{ product.price | money }}
+          </span>
+        {% endif %}
+      </p>
+    </section>
+
+    {% if product.variants.size > 1 %}
+      <section>
+        <select name="id">
+          {% for variant in product.variants %}
+            <option value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money }}</option>
+          {% endfor %}
+        </select>
+      </section>
+    {% endif %}
+    
+    <section>
+      <input type="submit" name="add" value="Add to cart" />
+    </section>
+  </form>
+</div>

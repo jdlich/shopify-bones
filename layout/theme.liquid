@@ -1,0 +1,119 @@
+<!doctype html>
+
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width" />
+  <meta name="description" content="{{ page_description }}" />
+  <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1' /><![endif]-->
+
+  <title>{{ shop.name }} | {{ page_title }}</title>
+
+  <link rel="canonical" href="{{ canonical_url }}" />
+
+  {{ content_for_header }}
+
+  {{ 'shop.css' | asset_url | stylesheet_tag }}
+
+  <!--[if lt IE 9]>
+    {{ '//html5shiv.googlecode.com/svn/trunk/html5.js' | script_tag }}
+  <![endif]-->
+
+  {% if template contains 'customers' %}
+    {{ 'shopify_common.js' | shopify_asset_url | script_tag }}
+    {{ 'customer_area.js'  | shopify_asset_url | script_tag }}
+  {% endif %}
+</head>
+
+<body>
+  <header>
+    <form action="/search" method="get">
+      <input name="q" type="text" placeholder="Search store..." />
+      <input type="submit" value="Search" />
+    </form>
+    
+    <ul>
+      {% if shop.customer_accounts_enabled %}
+        <li>
+          {% if customer %}
+            Logged in as <a href="/account">{{ customer.first_name }}</a> · {{ 'Log out' | customer_logout_link }}
+          {% else %}
+            {{ 'Log in' | customer_login_link }}
+            {% if shop.customer_accounts_optional %}
+              or {{ 'Create an account' | customer_register_link }}
+            {% endif %}
+          {% endif %}
+        </li>
+      {% endif %}
+      <li>
+        <a href="/cart">
+          {{ cart.item_count }} {{ cart.item_count | pluralize: 'item', 'items' }} ({{ cart.total_price | money }})
+        </a>
+      </li>
+      <li><a href="/cart">Check out</a>  </li>
+    </ul>
+    
+    <nav>
+      <ul>
+        {% for link in linklists.main-menu.links %}
+        {% assign has_sub_menu = false %}
+        {% assign has_sub_categories = false %}
+        {% assign parent_link_active = false %}
+        {% assign child_list_handle = link.title | handle %}
+        {% if linklists[child_list_handle] and linklists[child_list_handle].links.size > 0 %}
+          {% assign has_sub_menu = true %}
+          {% for l in linklists[child_list_handle].links %}
+            {% if page_title == l.title %}
+              {% assign parent_link_active = true %}
+            {% endif %}
+          {% endfor %}
+        {% elsif link.type == 'collection_link' and link.object.all_tags.size > 0 %}
+          {% assign has_sub_categories = true %}
+        {% endif %}
+        <li class="nav-item{% if forloop.first %} first{% elsif forloop.last %} last{% endif %}{% if link.active or parent_link_active %} active{% endif %}{% if has_sub_menu or has_sub_categories %} has-dropdown{% endif %}">
+          {{ link.title | link_to: link.url }}
+          {% if has_sub_menu or has_sub_categories %}
+          <ul class="sub-nav">
+            <li class="sub-nav-niblet"></li>
+            {% if has_sub_menu %}
+              {% for l in linklists[child_list_handle].links %}
+              <li class="sub-nav-item{% if forloop.first %} first{% elsif forloop.last %} last{% endif %}{% if l.active %} active{% endif %}">
+                <a class="{% if forloop.first %}first{% elsif forloop.last %}last{% endif %}" href="{{ l.url }}">{{ l.title }}</a>
+              </li>
+              {% endfor %}
+            {% elsif has_sub_categories %}
+              {% for tag in link.object.all_tags %}
+              <li class="sub-nav-item{% if forloop.first %} first{% elsif forloop.last %} last{% endif %}{% if current_tags contains tag %} active{% endif %}">
+                <a class="{% if forloop.first %}first{% elsif forloop.last %}last{% endif %}" href="{{ link.url }}/{{ tag | handle }}">{{ tag }}</a>
+              </li>
+              {% endfor %}
+            {% endif %}
+          </ul>
+          {% endif %}
+        </li>
+        {% endfor %}
+      </ul>
+    </nav>
+  </header>
+  
+  <div class="content">
+    {{ content_for_layout }}
+  </div>
+
+  <footer>
+    {% if linklists.footer.links.size > 0 %}
+      <ul>
+        {% for link in linklists.footer.links %}
+          <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    
+    <p>Copyright &copy; {{ "now" | date: "%Y" }} {{ shop.name }}.</p>
+  </footer>
+  
+  {{ '//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js' | script_tag }}
+  {{ 'shop.js'  | asset_url | script_tag }}
+
+</body>
+</html>

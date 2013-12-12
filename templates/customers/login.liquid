@@ -1,0 +1,45 @@
+
+{% form 'customer_login' %}
+  <h2>Login</h2>
+
+  {{ form.errors | default_errors }}
+
+  <section>
+    <label for="customer_email">Email</label>
+    <input type="email" value="" name="customer[email]" />
+  </section>
+
+  <section>
+    <label for="customer_password">Password</label>
+    <input type="password" value="" name="customer[password]" />
+    <a href="#">Forgot your password?</a>
+  </section>
+
+  <section>
+    <input type="submit" value="Sign In" />  
+  </section>
+{% endform %}
+
+{% form 'recover_customer_password' %}
+  <h2>Reset Password</h2>
+  <p class="note">We will send you an email to reset your password.</p>
+
+  {{ form.errors | default_errors }}
+
+  <section>
+    <label for="email">Email Address</label>
+    <input type="email" value="" name="email" />
+  </section>
+
+  <section>
+    <input type="submit" value="Submit" />
+    <a href="#">Cancel</a>
+  </section>
+{% endform %}
+
+{% if shop.customer_accounts_optional %}
+  <h2>Continue as Guest</h2>
+  {% form 'guest_login' %}
+    <input type="submit" value="Continue as Guest" />
+  {% endform %}
+{% endif %}

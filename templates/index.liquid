@@ -1,0 +1,12 @@
+{% assign page = pages.frontpage %}
+{% assign collection = collections.frontpage %}
+
+{{ page.content }}
+
+<ul>
+  {% for product in collection.products %}
+    <li>{% include 'product' %}</li>
+  {% else %}
+    <li>You have no products in your Frontpage collection.</li>
+  {% endfor %}
+</ul>

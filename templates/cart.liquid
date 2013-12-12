@@ -1,0 +1,78 @@
+
+<h1>Shopping Cart</h1>
+  
+{% if cart.item_count > 0 %}
+  <form action="/cart" method="post">
+    <table>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>&nbsp;</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Total</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in cart.items %}          
+          <tr>
+            <td>
+              <a href="{{ item.product.url | within: collections.all }}">
+                {{ item.product.featured_image.src | product_img_url: 'compact' | img_tag: item.title }}
+              </a>
+            </td>
+            <td>
+              <h2>
+                <a href="{{ item.product.url | within: collections.all }}">
+                  {{ item.title }}
+                  {% if item.product.variants.size == 1 %}
+                    {% unless item.variant.title contains 'Default' %}
+                     - {{ item.variant.title }}
+                    {% endunless %}
+                  {% endif %}
+                </a>
+              </h2>
+              <h3>{{ item.vendor }}</h3>
+            </td>
+            <td>{{ item.price | money }}</td>
+            <td>
+              <input type="number" name="updates[]" value="{{ item.quantity }}" />
+            </td>
+            <td>{{ item.line_price | money }}</td>
+            <td>
+              <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0">Remove</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>    
+    </table>
+  
+    <section>
+      <h2>Special instructions for seller</h2>
+      <textarea name="note">{{ cart.note }}</textarea>
+    </section>
+  
+    <section>
+      <h3>Subtotal <em>{{ cart.total_price | money }}</em></h3>
+
+      {% if forloop.first %}
+        {% assign collection_url = item.product.collections.first.url %}
+        {% if collection_url == '/collections/frontpage' or collection_url == '' %}
+          {% assign collection_url = '/collections/all' %}
+        {% endif %}
+      {% endif %}
+      <a href="{{ collection_url }}">Continue shopping</a>
+
+      <input type="submit" name="update" value="Update cart" />
+      <input type="submit" name="checkout" value="Check out" />    
+
+      {% if additional_checkout_buttons %}
+        {{ content_for_additional_checkout_buttons }}
+      {% endif %}    
+    </section>
+  </form>
+{% else %}
+  <h2>Your cart is currently empty!</h2>
+  <h3><a href="/collections/all">Continue Shopping</a></h3>
+{% endif %}

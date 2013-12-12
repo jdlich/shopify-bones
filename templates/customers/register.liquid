@@ -1,0 +1,31 @@
+
+{% form 'create_customer' %}
+  <h2>Create account</h2>
+
+  {{ form.errors | default_errors }}
+
+  <section>
+    <label for="first_name">First Name</label>
+    <input type="text" value="" name="customer[first_name]" />
+  </section>
+
+  <section>
+    <label for="last_name">Last Name</label>
+    <input type="text" value="" name="customer[last_name]" />
+  </section>
+
+  <section>
+    <label for="email">Email Address</label>
+    <input type="email" value="" name="customer[email]" />
+  </section>
+
+  <section>
+    <label for="password">Password</label>
+    <input type="password" value="" name="customer[password]" />
+  </section>
+
+  <section>
+    <input type="submit" value="Create" />
+  </section>
+{% endform %}
+
