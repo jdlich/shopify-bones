@@ -42,7 +42,7 @@
     {% if customer.default_address != nil %}
       <dt>Address (default)</dt>
       <dd>
-        {{ customer.default_address.address1 }}<br /> {% comment %} street address {% endcomment %}
+        {{ customer.default_address.address1 }}<br />
         {{ customer.default_address.city}}, {% if address.province_code %}{{customer.default_address.province_code}}, {% endif %}{{customer.default_address.country}}<br />
         {{ customer.default_address.zip}}<br />
       </dd>
