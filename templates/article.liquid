@@ -100,17 +100,17 @@
 
       <section>
         <label for="comment-author">Name</label>
-        <input required{% if form.errors contains "author" %} class="form-error"{% endif %} type="text" name="comment[author]" placeholder="Your name" id="comment-author" value="{{ form.author }}" />
+        <input id="comment-author" required type="text" name="comment[author]" placeholder="Your name" value="{{ form.author }}" />
       </section>
 
       <section>
         <label for="comment-email">Email</label>
-        <input required{% if form.errors contains "email" %} class="form-error"{% endif %} type="email" name="comment[email]" placeholder="your@email.com" id="comment-email" value="{{ form.email }}" />
+        <input id="comment-email" required type="email" name="comment[email]" placeholder="your@email.com" value="{{ form.email }}" />
       </section>
 
       <section>
         <label for="comment-body">Message</label>
-        <textarea required{% if form.errors contains "body" %} class="form-error"{% endif %} name="comment[body]" id="comment-body">{{ form.body }}</textarea>
+        <textarea id="comment-body" required name="comment[body]">{{ form.body }}</textarea>
       </section>
 
       <section>
