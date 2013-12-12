@@ -1,7 +1,5 @@
 
-<h1>
-  Order {{ order.name }} <span class="note order_date">&mdash; {{ order.created_at | date: "%b %d, %Y %I:%M%p" }}</span>
-</h1>
+<h1>Order {{ order.name }} &mdash; {{ order.created_at | date: "%b %d, %Y %I:%M%p" }}</h1>
 
 {% if order.cancelled %}
   <h2>Cancelled</h2>
@@ -65,12 +63,10 @@
         <td>
           {{ line_item.title | link_to: line_item.product.url }} 
           {% if line_item.fulfillment %}
-            <div class="note">
-              Fulfilled {{ line_item.fulfillment.created_at | date: "%b %d" }}
-              {% if line_item.fulfillment.tracking_number %}
-                <a href="{{ line_item.fulfillment.tracking_url }}">{{ line_item.fulfillment.tracking_company }} #{{ line_item.fulfillment.tracking_number}}</a>
-              {% endif %}
-            </div>
+            Fulfilled {{ line_item.fulfillment.created_at | date: "%b %d" }}
+            {% if line_item.fulfillment.tracking_number %}
+              <a href="{{ line_item.fulfillment.tracking_url }}">{{ line_item.fulfillment.tracking_company }} #{{ line_item.fulfillment.tracking_number}}</a>
+            {% endif %}
           {% endif %}
         </td>
         <td>{{ line_item.sku }}</td>
