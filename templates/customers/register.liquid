@@ -1,7 +1,8 @@
 
-{% form 'create_customer' %}
-  <h2>Create account</h2>
+<h1>Create account</h1>
 
+{% form 'create_customer' %}
+  
   {{ form.errors | default_errors }}
 
   <section>
@@ -27,5 +28,6 @@
   <section>
     <input type="submit" value="Create" />
   </section>
+
 {% endform %}
 
