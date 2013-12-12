@@ -44,10 +44,6 @@
     {% endif %}
 
     {% if total_comments > 0 %}
-      {% comment %}
-        New comment with no blank fields.
-      {% endcomment %}
-
       {% if comment and comment.created_at %}
         <div id="{{ comment.id }}">
           <section>
@@ -63,10 +59,6 @@
           </section>
         </div>
       {% endif %}
-
-      {% comment %}
-        Published comments.
-      {% endcomment %}
 
       {% for comment in article.comments %}
         <div id="{{ comment.id }}">
