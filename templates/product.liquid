@@ -59,15 +59,7 @@
       </p>
     </section>
 
-    {% if product.variants.size > 1 %}
-      <section>
-        <select name="id">
-          {% for variant in product.variants %}
-            <option value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money }}</option>
-          {% endfor %}
-        </select>
-      </section>
-    {% endif %}
+    <input type="hidden" value="{{ product.variants.first.id }}" name="id" />
     
     <section>
       <input type="submit" name="add" value="Add to cart" />
