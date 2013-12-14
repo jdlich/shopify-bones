@@ -77,7 +77,7 @@
     <p>Copyright &copy; {{ "now" | date: "%Y" }} {{ shop.name }}.</p>
   </footer>
   
-  {{ '//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js' | script_tag }}
+  {{ 'jquery.js' | asset_url | script_tag }}
   {{ 'shop.js'  | asset_url | script_tag }}
 
 </body>
