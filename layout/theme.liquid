@@ -13,7 +13,8 @@
 
   {{ content_for_header }}
 
-  {{ 'shop.css' | asset_url | stylesheet_tag }}
+  {{ 'foundation.css' | asset_url | stylesheet_tag }}
+  {{ 'shop.scss.css' | asset_url | stylesheet_tag }}
 
   <!--[if lt IE 9]>
     {{ '//html5shiv.googlecode.com/svn/trunk/html5.js' | script_tag }}
