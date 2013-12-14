@@ -68,13 +68,11 @@
   </div>
 
   <footer>
-    {% if linklists.footer.links.size > 0 %}
-      <ul>
-        {% for link in linklists.footer.links %}
-          <li><a href="{{ link.url }}">{{ link.title }}</a></li>
-        {% endfor %}
-      </ul>
-    {% endif %}
+    <ul>
+      {% for link in linklists.footer.links %}
+        <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+      {% endfor %}
+    </ul>
     
     <p>Copyright &copy; {{ "now" | date: "%Y" }} {{ shop.name }}.</p>
   </footer>
