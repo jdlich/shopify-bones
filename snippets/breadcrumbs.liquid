@@ -17,10 +17,10 @@
   <span>
     <a href="/">Home</a>
   </span>
-  {% if collection and product %}
+  {% if collection and product or collection and tag_filter %}
     <span>{{ collection.title | link_to: collection.url }}</span>
-  {% elsif collection and tag_filter %}
-    <span>{{ collection.title | link_to: collection.url }}</span>
+  {% endif %}
+  {% if tag_filter %}
     <span style="text-transform: capitalize;">
       <strong>
         {% for tag in collection_tags %}
@@ -28,12 +28,11 @@
         {% endfor %}
       </strong>
     </span>
-  {% endif %}
-  {% unless tag_filter %}
+  {% else %}
     <span>
       <strong>{{ page_title }}</strong>
     </span>
-  {% endunless %}
+  {% endif %}
 </nav>
 
 
