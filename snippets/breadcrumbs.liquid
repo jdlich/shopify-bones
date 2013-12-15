@@ -1,14 +1,39 @@
 
+{% if collection %}
+  {% assign collection_tags = '' %}
+  {% for tag in collection.all_tags %}
+    {% if current_tags contains tag %}
+      {% assign tag_filter = true %}
+      {% capture collection_tags %}{{ collection_tags | append: tag }}{% endcapture %}
+      {% unless forloop.last %}
+        {% capture collection_tags %}{{ collection_tags | append: '|' }}{% endcapture %}
+      {% endunless %}
+    {% endif %}
+  {% endfor %}
+  {% assign collection_tags = collection_tags | split: '|' %}
+{% endif %}
+
 <nav>
   <span>
     <a href="/">Home</a>
   </span>
-  {% if product and collection %}
-    <span>
-      <a href="{{ collection.url }}">{{ collection.title }}</a>
+  {% if collection and product %}
+    <span>{{ collection.title | link_to: collection.url }}</span>
+  {% elsif collection and tag_filter %}
+    <span>{{ collection.title | link_to: collection.url }}</span>
+    <span style="text-transform: capitalize;">
+      <strong>
+        {% for tag in collection_tags %}
+          {{ tag | downcase }} {% unless forloop.last %}+{% endunless %}
+        {% endfor %}
+      </strong>
     </span>
   {% endif %}
-  <span>
-    <strong>{{ page_title }}</strong>
-  </span>
+  {% unless tag_filter %}
+    <span>
+      <strong>{{ page_title }}</strong>
+    </span>
+  {% endunless %}
 </nav>
+
+
