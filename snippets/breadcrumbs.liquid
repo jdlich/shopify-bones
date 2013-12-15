@@ -1,8 +1,14 @@
 
 <nav>
-  <a href="/">Home</a>
+  <span>
+    <a href="/">Home</a>
+  </span>
   {% if product and collection %}
-    <a href="{{ collection.url }}">{{ collection.title }}</a>
+    <span>
+      <a href="{{ collection.url }}">{{ collection.title }}</a>
+    </span>
   {% endif %}
-  <span>{{ page_title }}</span>
+  <span>
+    <strong>{{ page_title }}</strong>
+  </span>
 </nav>
