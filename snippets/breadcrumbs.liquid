@@ -1,0 +1,8 @@
+
+<nav>
+  <a href="/">Home</a>
+  {% if product and collection %}
+    <a href="{{ collection.url }}">{{ collection.title }}</a>
+  {% endif %}
+  <span>{{ page_title }}</span>
+</nav>
