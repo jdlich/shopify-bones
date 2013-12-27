@@ -23,7 +23,7 @@
     {% assign product_vendor = product.vendor | handle %}            
     
     {% if collections[product_vendor].handle == product_vendor %}
-      {% assign vendor_url = collections[product_vendor_handle].url %}
+      {% assign vendor_url = collections[product_vendor].url %}
     {% else %}
       {% assign vendor_url = product.vendor | url_for_vendor %}
     {% endif %}
