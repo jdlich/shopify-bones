@@ -1,0 +1,7 @@
+.DS_Store
+.sass-cache
+bower_components
+
+# ignore compiled assets
+assets/shop.js
+assets/shop.scss.liquid

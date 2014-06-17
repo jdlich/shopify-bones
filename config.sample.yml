@@ -1,0 +1,12 @@
+--- 
+:api_key: 
+:password: 
+:store: 
+:theme_id: 
+:ignore_files:
+  - config.sample.yml
+  - Gemfile*
+  - Guardfile
+  - README.md
+  - source
+  - bower_components
