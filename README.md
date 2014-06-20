@@ -1,8 +1,8 @@
-## Shopify Bones
+# Shopify Bones
 
 Shopify Bones is a base Shopify theme designed for creating themes from scratch. If you're looking for a stripped down liquid skeleton with lean semantic markup, this is it. No comments, no classes. Includes customer area.
 
-## Getting Started
+# Getting Started
 
 Shopify Bones has a few dependencies but it doesn't actually make use of any them. These include libraries such as Foundation, but you can use your favorite grid. See `bower.json` and `Gemfile` for more details.
 
@@ -14,11 +14,11 @@ Then run:
 
     bundle install && bower install
 
-#### Configure your Shopify store
+### Configure your Shopify store
 
 The `shopify_theme` gem is built-in. Rename `config.sample.yml` to `config.yml` and configure for your particular shop. See [shopify_theme][3] for details.
 
-#### Using Guard
+### Using Guard
 
 Shopify Bones uses [guard][1] to watch files and manage assets. To run it, type:
 
@@ -33,7 +33,7 @@ Guard will:
 
 It does all of this conveniently in a single terminal window. See the `Guardfile`.
 
-#### Binary Dependencies for Compressing Images
+### Binary Dependencies for Compressing Images
 
 Guard uses the `image_optim` gem to compress images. It relies on a few [binary dependencies][2] that you might be missing. Those can be installed easily with homebrew.
 
