@@ -4,7 +4,9 @@ Shopify Bones is a base Shopify theme designed for creating themes from scratch.
 
 ## Getting Started
 
-First, make sure you have bundler and bower installed:
+Shopify Bones has a few dependencies but it doesn't actually make use of any them. These include libraries such as Foundation, but you can use your favorite grid. See `bower.json` and `Gemfile` for more details.
+
+Make sure you have bundler and bower installed:
 
     gem install bundler && npm install -g bower
 
@@ -12,13 +14,11 @@ Then run:
 
     bundle install && bower install
 
-To install dependencies.
+#### Configure your Shopify store
 
-#### Binary Dependencies for Compressing Images
+The `shopify_theme` gem is built-in. Rename `config.sample.yml` to `config.yml` and configure for your particular shop. See [shopify_theme][3] for details.
 
-The `image_optim` gem is used to compress new image assets. It relies on a few [binary dependencies][2] that you might be need to install with brew.
-
-## Guard
+#### Using Guard
 
 Shopify Bones uses [guard][1] to watch files and manage assets. To run it, type:
 
@@ -33,5 +33,11 @@ Guard will:
 
 It does all of this conveniently in a single terminal window. See the `Guardfile`.
 
+#### Binary Dependencies for Compressing Images
+
+Guard uses the `image_optim` gem to compress images. It relies on a few [binary dependencies][2] that you might be missing. Those can be installed easily with homebrew.
+
+
 [1]: https://github.com/guard/guard
 [2]: https://github.com/toy/image_optim#binaries-installation
+[3]: https;//github.com/shopify/shopify_theme
